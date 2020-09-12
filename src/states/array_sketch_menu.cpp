@@ -1,19 +1,28 @@
-#include<states/array_sketch_menu.hpp>
-#include<state_elements/button.hpp>
-#include<state_elements/panel.hpp>
-#include<state_elements/text_form.hpp>
+#include <states/array_sketch_menu.hpp>
+
+#include <state_elements/button.hpp>
+#include <state_elements/panel.hpp>
+#include <state_elements/text_form.hpp>
+#include <sketches/array.hpp>
+
 ArraySketchMenu::ArraySketchMenu(StateManager *applicationStateManager, Action action) : State(applicationStateManager)
 {
     // Top Area
-    if(action== Action::BubbleSort)
-        {stateElementList.push_back(new Panel(this->stateManager, 10, 10, 1180, 50, "Array - Bubble Sort", 32, sf::Color::White));}
-    if(action== Action::SelectionSort)
-        {stateElementList.push_back(new Panel(this->stateManager, 10, 10, 1180, 50, "Array - Selection Sort", 32, sf::Color::White));}
-    if(action== Action::InsertionSort)
-        {stateElementList.push_back(new Panel(this->stateManager, 10, 10, 1180, 50, "Array - Insertion Sort", 32, sf::Color::White));}
-    
+    if (action == Action::BubbleSort)
+    {
+        stateElementList.push_back(new Panel(this->stateManager, 10, 10, 1180, 50, "Array - Bubble Sort", 32, sf::Color::White));
+    }
+    if (action == Action::SelectionSort)
+    {
+        stateElementList.push_back(new Panel(this->stateManager, 10, 10, 1180, 50, "Array - Selection Sort", 32, sf::Color::White));
+    }
+    if (action == Action::InsertionSort)
+    {
+        stateElementList.push_back(new Panel(this->stateManager, 10, 10, 1180, 50, "Array - Insertion Sort", 32, sf::Color::White));
+    }
+
     // Visualization Area
-    sketchContainer = new Array(this->stateManager, 10, 70, 882.5, 660, 50,action); // 882.5
+    sketchContainer = new Array(this->stateManager, 10, 70, 882.5, 660, 50, action); // 882.5
     stateElementList.push_back(sketchContainer);
 
     // Input Area
