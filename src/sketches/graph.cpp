@@ -5,8 +5,8 @@
 Node::Node(StateManager *applicationStateManager, int value, float x, float y, float radius, float sketchWidth, float sketchHeight)
     : StateElement(applicationStateManager, x, y, radius * 2, radius * 2)
 {
-    this->x = 400;
-    this->y = 400;
+    this->x = x;
+    this->y = y;
     this->value = value;
 
     this->areaWidth = sketchWidth;
@@ -15,7 +15,7 @@ Node::Node(StateManager *applicationStateManager, int value, float x, float y, f
 
     // Set up Node shape
     this->nodeColor = sf::Color::Black;
-    this->nodeShape.setPosition(sf::Vector2f(x, y));
+    this->nodeShape.setPosition(x, y);
     this->nodeShape.setRadius(this->radius);
     this->nodeShape.setFillColor(this->nodeColor);
     this->nodeShape.setOrigin(this->x + this->radius, this->y + this->radius);
@@ -30,6 +30,8 @@ Node::Node(StateManager *applicationStateManager, int value, float x, float y, f
     this->drawableList.pop_back();
     this->drawableList.push_back(&(this->nodeShape));
     this->drawableList.push_back(this->text);
+
+    std::cout << "Node loaded at " << nodeShape.getPosition().x << " " << nodeShape.getPosition().y << std::endl;
 }
 
 Node::~Node() {}
@@ -73,7 +75,12 @@ sf::Vector2f Node::getPosition()
 void Node::update()
 {
     if (this->hovered() and this->leftKeyHeld())
-        this->setPosition(getMousePosition());
+    {
+        this->x = getMousePosition().x;
+        this->y = getMousePosition().y;
+    }
+
+    this->nodeShape.setPosition(this->x, this->y);
 }
 
 // Edge functions
